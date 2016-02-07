@@ -17,6 +17,10 @@ in detail below.
 - is hidden by default: checks the .menu-hidden class is applied to the body.
 - changes visibility when clicked: checks the .menu-hidden class is removed/added when clicking the menu button, simulating 
 opening/closing the menu.
+2a. Menu feed list
+- displays the same number of feeds in menu: checks that the allFeeds array length is the same as the number of feed
+items that populate the menu.
+- hides menu on feed name click: checks that the menu is closed when selecting a feed.
 
 3. Initial Entries
 - are generated after loadFeed() has completed: checks that at least one .entry element within the .feed container after the

@@ -69,6 +69,26 @@ $(function() {
 
         });
 
+        // additional tests
+        describe('Menu feed list', function() {
+
+            var feedLength = allFeeds.length;
+            var menuLength = $('.feed-list').children().length;
+
+            // Compare feed array length to number of items in menu
+            it('displays the same number of feeds in menu', function() {
+                expect(feedLength).toEqual(menuLength);
+            });
+
+            it('hides menu on feed name click', function() {
+
+                $('a.feed-list').click(); // click on feed link
+
+                expect(menuClosed()).toBe(true);
+            });
+
+        });
+
     });
 
     describe('Initial Entries', function() {
