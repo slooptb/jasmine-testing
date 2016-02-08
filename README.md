@@ -6,6 +6,15 @@ Jasmine test suites.
 Tests were written on a pre-existing application to test underlying business logic and DOM manipulation and are outlined
 in detail below.
 
+## Getting Started
+
+Everything needed to run is included in this repo or served via 3rd party (see index.html). Dependencies/includes: jQuery, 
+Jasmine, Handlebars and Google Feeds API.
+
+- Open index.html in a web browser to run the app and see test results.
+- Jasmine tests are located in the jasmine folder here: jasmine/spec/feedreader.js
+- App javascript can be found here: js/app.js
+
 ## Tests
 
 RSS Feeds

@@ -22,20 +22,16 @@ $(function() {
 
         it('have a URL defined and is not empty', function() {
            allFeeds.forEach(function(item) {
-               // Is URL defined
-               expect(item.url).toBeDefined();
-               // Is URL not empty (or in this case truthy)
+               // Is URL defined & not empty
                expect(item.url).toBeTruthy();
-           })
+           });
         });
 
         it('have a name defined and is not empty', function() {
             allFeeds.forEach(function(item) {
-                // Is name defined
-                expect(item.name).toBeDefined();
-                // Is name not empty (or in this case truthy)
+                // Is name defined & not empty
                 expect(item.name).toBeTruthy();
-            })
+            });
         });
     });
 
@@ -62,11 +58,10 @@ $(function() {
             }
             // Open menu
             menuBtn.click();
-            expect(menuClosed()).toBe(false);
+            expect(menuClosed()).toBeFalsy();
             // Close menu
             menuBtn.click();
-            expect(menuClosed()).toBe(true);
-
+            expect(menuClosed()).toBeTruthy();
         });
 
         // additional tests
@@ -79,32 +74,19 @@ $(function() {
             it('displays the same number of feeds in menu', function() {
                 expect(feedLength).toEqual(menuLength);
             });
-
-            it('hides menu on feed name click', function() {
-
-                $('a.feed-list').click(); // click on feed link
-
-                expect(menuClosed()).toBe(true);
-            });
-
         });
-
     });
 
     describe('Initial Entries', function() {
 
-        var feedContainer = $('.feed'); // here is where the feed container lives
-
         beforeEach(function(done) {
             // Get our first feed and pass done as callback
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
         it('are generated after loadFeed() has completed', function() {
-            // jQuery .has('.entry').length returns 1 when at least one .entry class present
-            expect(feedContainer.has('.entry').length).not.toBe(0);
+            // find how many entries and check greater than 0
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
@@ -116,27 +98,25 @@ $(function() {
 
         beforeEach(function(done) {
 
-            /* Credit to the forums for this method, I was implementing a similar way!
-                It works but I fear it is not as robust as it should be so please let me know
-                if there is a better solution!
-             */
-
             feedContainer.empty(); // clear out any old data
 
             // Get our first feed and store in firstCall.
             loadFeed(0, function() {
                 firstCall = feedContainer.find("h2").text();
-            });
-
-            // load a different feed and store in secondCall. Call done() to let it know we're ready.
-            loadFeed(1, function() {
-                secondCall = feedContainer.find("h2").text();
-                done();
+                console.log(firstCall);
+                // Get second feed and call done within anonymous callback function here to ensure both
+                // tests are asynchronous.
+                loadFeed(1, function() {
+                    secondCall = feedContainer.find("h2").text();
+                    console.log(secondCall);
+                    done();
+                });
             });
         });
 
         it('ensures content changes when a new feed is loaded', function() {
-            // Simple comparison of the two loadFeed calls above.
+
+            // simple comparison of the two feeds
             expect(firstCall).not.toEqual(secondCall);
         });
     });
